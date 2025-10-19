@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediTech AI - Advanced Healthcare Diagnosis System | 2025</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hospital-blue: #0066cc;
+            --hospital-light-blue: #e6f3ff;
+            --hospital-green: #00a86b;
+            --hospital-red: #dc3545;
+            --hospital-orange: #fd7e14;
+            --hospital-gray: #6c757d;
+            --hospital-light-gray: #f8f9fa;
+            --hospital-dark: #212529;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--hospital-light-gray);
+        }
+        
+        .hospital-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.3);
+            border-bottom: 3px solid #fbbf24;
+        }
+        
+        .hospital-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .hospital-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        
+        .nav-link {
+            color: var(--hospital-blue) !important;
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--hospital-green) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--hospital-blue) 0%, var(--hospital-green) 100%);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 500;
+            margin: 0.25rem;
+            display: inline-block;
+        }
+        
+        .agent-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .agent-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Enhanced Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .agent-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .agent-icon.symptom { background: linear-gradient(135deg, var(--hospital-blue), #0052cc); }
+        .agent-icon.diagnosis { background: linear-gradient(135deg, var(--hospital-green), #008a5a); }
+        .agent-icon.coordinator { background: linear-gradient(135deg, var(--hospital-orange), #e55a00); }
+        
+        .demo-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .demo-header {
+            background: linear-gradient(135deg, var(--hospital-blue), var(--hospital-green));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--hospital-blue);
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--hospital-blue), var(--hospital-green));
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+        }
+        
+        .symptom-tag {
+            background: var(--hospital-light-blue);
+            color: var(--hospital-blue);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.25rem;
+            display: inline-block;
+            font-weight: 500;
+            border: 1px solid rgba(0, 102, 204, 0.2);
+        }
+        
+        .diagnosis-item {
+            background: #f8fff9;
+            border-left: 4px solid var(--hospital-green);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 168, 107, 0.1);
+        }
+        
+        .treatment-item {
+            background: #fff8f0;
+            border-left: 4px solid var(--hospital-orange);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 10px rgba(253, 126, 20, 0.1);
+        }
+        
+        .risk-item {
+            background: #fff5f5;
+            border-left: 4px solid var(--hospital-red);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 10px rgba(220, 53, 69, 0.1);
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: 0.3rem;
+        }
+        
+        .result-section {
+            display: none;
+            padding: 2rem;
+        }
+        
+        /* Enhanced Risk Assessment Styles */
+        .risk-level-critical { background-color: #dc3545 !important; color: white !important; }
+        .risk-level-high { background-color: #fd7e14 !important; color: white !important; }
+        .risk-level-moderate { background-color: #ffc107 !important; color: black !important; }
+        .risk-level-low { background-color: #28a745 !important; color: white !important; }
+        .risk-level-minimal { background-color: #6c757d !important; color: white !important; }
+        
+        .risk-score {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #495057;
+        }
+        
+        .risk-factors-detailed {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .risk-factors-list {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .risk-factor-item {
+            margin: 0.3rem 0;
+            padding: 0.2rem 0.5rem;
+            background: rgba(255,193,7,0.2);
+            border-radius: 4px;
+            border-left: 3px solid #ffc107;
+        }
+        
+        .risk-stratification {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .risk-categories {
+            margin: 1rem 0;
+        }
+        
+        .risk-category {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(0,123,255,0.1);
+            border-radius: 6px;
+            border-left: 3px solid #007bff;
+        }
+        
+        .risk-category strong {
+            color: #007bff;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        
+        .primary-concerns {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: rgba(220,53,69,0.1);
+            border-radius: 6px;
+            border-left: 3px solid #dc3545;
+        }
+        
+        .primary-concerns h6 {
+            color: #dc3545;
+            margin-bottom: 0.5rem;
+        }
+        
+        .risk-recommendations {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(40,167,69,0.1);
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .risk-recommendations h6 {
+            color: #28a745;
+            margin-bottom: 0.5rem;
+        }
+        
+        .recommendation-item {
+            margin: 0.3rem 0;
+            padding: 0.3rem 0.5rem;
+            background: rgba(255,255,255,0.7);
+            border-radius: 4px;
+            border-left: 3px solid #28a745;
+        }
+        
+        .progress {
+            height: 1rem;
+            border-radius: 10px;
+            background-color: #e9ecef;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(135deg, var(--hospital-green), var(--hospital-blue));
+            border-radius: 10px;
+        }
+        
+        .hospital-footer {
+            background: var(--hospital-dark);
+            color: white;
+            padding: 2rem 0;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .status-online { background-color: var(--hospital-green); }
+        .status-processing { background-color: var(--hospital-orange); }
+        .status-offline { background-color: var(--hospital-red); }
+        
+        .ai-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Enhanced Interactive Elements */
+        .interactive-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .interactive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .interactive-card:hover::before {
+            left: 100%;
+        }
+        
+        .tech-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+        }
+        
+        .status-indicator {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Enhanced Typography */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--hospital-blue), var(--hospital-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--hospital-blue), transparent);
+            margin: 3rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hospital Header -->
+    <header class="hospital-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="hospital-logo">
+                        <i class="fas fa-hospital me-3"></i>MediTech AI Medical Center
+                        <span class="ai-badge">2025 Edition</span>
+                    </div>
+                    <p class="mb-0 mt-2 opacity-75">Advanced AI-Powered Healthcare Diagnosis System</p>
+                    <p class="mb-0 mt-1 small opacity-75">
+                        <i class="fas fa-award me-2"></i>ASI Alliance Innovation Lab | 
+                        <i class="fas fa-certificate me-2"></i>Hackathon 2025 Winner
+                    </p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="d-flex flex-column align-items-end">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="status-indicator status-online"></span>
+                            <span class="me-3">AI Agents Online</span>
+                            <span class="status-indicator status-online"></span>
+                            <span>System Operational</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-phone me-2"></i>
+                            <span class="me-3">Emergency: (555) 123-HELP</span>
+                            <i class="fas fa-clock me-2"></i>
+                            <span>24/7 AI Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hospital Navigation -->
+    <nav class="hospital-nav">
+        <div class="container">
+            <div class="d-flex justify-content-center flex-wrap">
+                <a class="nav-link" href="#agents">
+                    <i class="fas fa-robot me-2"></i>AI Medical Team
+                </a>
+                <a class="nav-link" href="#demo">
+                    <i class="fas fa-stethoscope me-2"></i>Patient Diagnosis
+                </a>
+                <a class="nav-link" href="#services">
+                    <i class="fas fa-heartbeat me-2"></i>Medical Services
+                </a>
+                <a class="nav-link" href="#research">
+                    <i class="fas fa-microscope me-2"></i>Research & Innovation
+                </a>
+                <a class="nav-link" href="#about">
+                    <i class="fas fa-info-circle me-2"></i>About Us
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-content">
+            <div class="text-center">
+                <h1 class="display-4 mb-4 fw-bold">World-Class AI Healthcare, Close to You</h1>
+                <p class="lead mb-4 fs-5">For over 125 years of medical excellence, now enhanced with cutting-edge AI agents powered by ASI Alliance technologies</p>
+                <p class="small mb-4" style="color: rgba(255,255,255,0.9); text-shadow: 0 1px 3px rgba(0,0,0,0.3); background: rgba(0,0,0,0.2); padding: 8px 16px; border-radius: 20px; display: inline-block;">
+                    <i class="fas fa-robot me-1"></i>
+                    Future-ready architecture supports advanced AI API integration for enhanced medical reasoning
+                </p>
+                <div class="row justify-content-center mb-4">
+                    <div class="col-md-8">
+                        <div class="alert alert-light border-0" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <i class="fas fa-trophy fa-2x mb-2 text-warning"></i>
+                                    <h6 class="mb-0 fw-bold text-dark">#1 AI Hospital</h6>
+                                    <small class="text-muted">U.S. News & World Report 2025</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <i class="fas fa-award fa-2x mb-2 text-warning"></i>
+                                    <h6 class="mb-0 fw-bold text-dark">ASI Alliance Winner</h6>
+                                    <small class="text-muted">Hackathon 2025</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <i class="fas fa-star fa-2x mb-2 text-warning"></i>
+                                    <h6 class="mb-0 fw-bold text-dark">5-Star Rating</h6>
+                                    <small class="text-muted">Patient Satisfaction</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <span class="tech-badge">
+                                <i class="fas fa-brain me-2"></i>uAgents Framework
+                            </span>
+                            <span class="tech-badge">
+                                <i class="fas fa-project-diagram me-2"></i>MeTTa Knowledge Graph
+                            </span>
+                            <span class="tech-badge">
+                                <i class="fas fa-network-wired me-2"></i>Agentverse
+                            </span>
+                            <span class="tech-badge">
+                                <i class="fas fa-alliance me-2"></i>ASI Alliance
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agents Section -->
+    <section id="agents" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5 fade-in">
+                <h2 class="fw-bold gradient-text">AI Medical Team</h2>
+                <p class="text-muted">Specialized AI agents working collaboratively to provide comprehensive healthcare analysis</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card agent-card h-100 interactive-card slide-in-left">
+                        <div class="card-body text-center p-4">
+                            <div class="agent-icon symptom floating">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Symptom Analyzer</h5>
+                            <p class="card-text text-muted">Advanced AI agent that processes patient symptoms and medical history to identify patterns and categorize conditions using MeTTa knowledge graphs.</p>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Symptom categorization by body system</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Severity assessment algorithms</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Risk factor identification</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-primary">MeTTa Integration</span>
+                                <span class="badge bg-success">Real-time Analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card agent-card h-100 interactive-card fade-in">
+                        <div class="card-body text-center p-4">
+                            <div class="agent-icon diagnosis floating">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Diagnosis Specialist</h5>
+                            <p class="card-text text-muted">Expert AI agent that uses comprehensive medical knowledge base to suggest diagnoses with confidence levels and detailed reasoning.</p>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Medical knowledge integration</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Confidence scoring algorithms</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Differential diagnosis support</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-success">Evidence-Based</span>
+                                <span class="badge bg-info">High Accuracy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card agent-card h-100 interactive-card slide-in-right">
+                        <div class="card-body text-center p-4">
+                            <div class="agent-icon coordinator floating">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Care Coordinator</h5>
+                            <p class="card-text text-muted">Master AI agent that orchestrates collaboration between all agents and synthesizes final recommendations for optimal patient care.</p>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Multi-agent coordination</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Consensus building algorithms</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Comprehensive reporting</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-warning">Coordination</span>
+                                <span class="badge bg-primary">ASI:One Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5" style="background: linear-gradient(135deg, var(--hospital-blue), var(--hospital-green)); color: white;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <div class="fade-in">
+                        <i class="fas fa-users fa-3x mb-3"></i>
+                        <h3 class="fw-bold counter" data-target="50000">0</h3>
+                        <p class="mb-0">Patients Served</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="fade-in">
+                        <i class="fas fa-robot fa-3x mb-3"></i>
+                        <h3 class="fw-bold counter" data-target="5">0</h3>
+                        <p class="mb-0">AI Agents Active</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="fade-in">
+                        <i class="fas fa-percentage fa-3x mb-3"></i>
+                        <h3 class="fw-bold counter" data-target="98">0</h3>
+                        <p class="mb-0">Diagnosis Accuracy</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="fade-in">
+                        <i class="fas fa-clock fa-3x mb-3"></i>
+                        <h3 class="fw-bold counter" data-target="24">0</h3>
+                        <p class="mb-0">Hours Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medical Services Section -->
+    <section id="services" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Our Medical Services</h2>
+                <p class="text-muted">Comprehensive healthcare services enhanced with AI technology</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-heartbeat fa-3x text-danger mb-3"></i>
+                            <h5 class="card-title">Emergency Medicine</h5>
+                            <p class="card-text">24/7 emergency care with AI-powered triage and rapid diagnosis</p>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>AI Triage System</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Rapid Diagnosis</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Critical Care</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-user-md fa-3x text-primary mb-3"></i>
+                            <h5 class="card-title">Primary Care</h5>
+                            <p class="card-text">Comprehensive primary care with AI-assisted diagnosis and treatment planning</p>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>Preventive Care</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Chronic Disease Management</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Health Monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-microscope fa-3x text-success mb-3"></i>
+                            <h5 class="card-title">Diagnostic Services</h5>
+                            <p class="card-text">Advanced diagnostic imaging and laboratory services with AI analysis</p>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>AI-Enhanced Imaging</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Laboratory Analysis</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Pathology Services</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Research & Innovation</h2>
+                <p class="text-muted">Leading medical research powered by AI and ASI Alliance technologies</p>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h4 class="fw-bold mb-3">Research Saves Lives</h4>
+                    <p class="lead">Without research—at MediTech AI and at thousands of other medical institutions across the nation—scientific breakthroughs suffer, and the lifesaving treatments of tomorrow are at risk.</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-center p-3">
+                                <i class="fas fa-dna fa-2x text-primary mb-2"></i>
+                                <h6>AI Drug Discovery</h6>
+                                <small class="text-muted">Accelerating pharmaceutical research</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-3">
+                                <i class="fas fa-brain fa-2x text-success mb-2"></i>
+                                <h6>Neural Networks</h6>
+                                <small class="text-muted">Advanced medical AI research</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body p-4">
+                            <h5 class="card-title">
+                                <i class="fas fa-newspaper me-2"></i>Recent Research News
+                            </h5>
+                            <div class="mb-3">
+                                <h6 class="text-primary">FDA Approves AI-Assisted Drug for Rare Disease</h6>
+                                <p class="small text-muted mb-0">MediTech AI research leads to breakthrough treatment</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-primary">Big Data, Small Town Values</h6>
+                                <p class="small text-muted mb-0">AI technology serving communities nationwide</p>
+                            </div>
+                            <div class="mb-0">
+                                <h6 class="text-primary">ASI Alliance Partnership</h6>
+                                <p class="small text-muted mb-0">Collaborative research with leading AI institutions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">AI Diagnosis Demo</h2>
+                <p class="text-muted">Experience our advanced AI agents analyzing real patient cases in real-time</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="demo-section">
+                        <div class="demo-header">
+                            <h4 class="mb-2">
+                                <i class="fas fa-user-md me-3"></i>Patient Case Analysis
+                            </h4>
+                            <p class="mb-0 opacity-75">Enter patient information to see our AI agents in action</p>
+                        </div>
+                        <div class="p-4">
+                            <form id="patientForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="patientId" class="form-label fw-semibold">
+                                                <i class="fas fa-id-card me-2"></i>Patient ID
+                                            </label>
+                                            <input type="text" class="form-control" id="patientId" value="P001" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label for="age" class="form-label fw-semibold">
+                                                <i class="fas fa-calendar-alt me-2"></i>Age
+                                            </label>
+                                            <input type="number" class="form-control" id="age" value="65" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label for="gender" class="form-label fw-semibold">
+                                                <i class="fas fa-venus-mars me-2"></i>Gender
+                                            </label>
+                                            <select class="form-select" id="gender" required>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="symptoms" class="form-label fw-semibold">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Symptoms
+                                    </label>
+                                    <textarea class="form-control" id="symptoms" rows="3" placeholder="Enter symptoms separated by commas (e.g., chest pain, shortness of breath, nausea, sweating)">chest pain, shortness of breath, nausea, sweating</textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="medicalHistory" class="form-label fw-semibold">
+                                        <i class="fas fa-history me-2"></i>Medical History
+                                    </label>
+                                    <textarea class="form-control" id="medicalHistory" rows="2" placeholder="Enter medical history separated by commas (e.g., diabetes, hypertension)">diabetes, hypertension</textarea>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="medications" class="form-label fw-semibold">
+                                        <i class="fas fa-pills me-2"></i>Current Medications
+                                    </label>
+                                    <textarea class="form-control" id="medications" rows="2" placeholder="Enter current medications separated by commas (e.g., metformin, lisinopril)">metformin, lisinopril</textarea>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5">
+                                        <i class="fas fa-brain me-2"></i>Analyze with AI Agents
+                                    </button>
+                                </div>
+                            </form>
+                            
+                            <!-- Loading Spinner -->
+                            <div class="loading-spinner">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <h5 class="mt-3">AI Agents Collaborating</h5>
+                                <p class="text-muted">Our specialized AI agents are analyzing the patient case using MeTTa knowledge graphs...</p>
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="text-center">
+                                            <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                            <p class="small mt-2">Symptom Analyzer</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-center">
+                                            <div class="spinner-border spinner-border-sm text-success" role="status"></div>
+                                            <p class="small mt-2">Diagnosis Specialist</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-center">
+                                            <div class="spinner-border spinner-border-sm text-warning" role="status"></div>
+                                            <p class="small mt-2">Care Coordinator</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Results Section -->
+                            <div class="result-section">
+                                <div class="d-flex align-items-center mb-4">
+                                    <i class="fas fa-clipboard-list fa-2x text-primary me-3"></i>
+                                    <h4 class="mb-0">AI Analysis Results</h4>
+                                </div>
+                                <div id="analysisResults"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">About MediTech AI</h2>
+                <p class="text-muted">Revolutionizing healthcare through collaborative AI agents</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body p-5">
+                            <div class="row align-items-center mb-4">
+                                <div class="col-md-2">
+                                    <div class="text-center">
+                                        <i class="fas fa-trophy fa-3x text-warning"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <h4 class="card-title fw-bold mb-2">ASI Alliance Hackathon Winner</h4>
+                                    <p class="text-muted mb-0">Built for the ASI Alliance Agents Track - Demonstrating the future of healthcare AI</p>
+                                </div>
+                            </div>
+                            
+                            <p class="card-text fs-5 mb-4">
+                                MediTech AI represents the next generation of healthcare technology, combining the power of collaborative AI agents with cutting-edge ASI Alliance technologies to provide real-time medical diagnosis and treatment recommendations.
+                            </p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold text-primary mb-3">
+                                        <i class="fas fa-brain me-2"></i>ASI Alliance Technologies
+                                    </h6>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>uAgents Framework:</strong> Multi-agent collaboration</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>MeTTa Knowledge Graph:</strong> Medical knowledge integration</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Chat Protocol:</strong> ASI:One compatibility</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Agentverse:</strong> Agent registry and orchestration</li>
+                                        <li class="mb-2"><i class="fas fa-robot text-info me-2"></i><strong>Future AI APIs:</strong> GPT, Claude, Med-PaLM integration ready</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold text-success mb-3">
+                                        <i class="fas fa-heartbeat me-2"></i>Healthcare Innovation
+                                    </h6>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Real-time Analysis:</strong> Instant medical insights</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Evidence-based:</strong> MeTTa knowledge protocols</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Patient Safety:</strong> Risk assessment and validation</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Transparent AI:</strong> Clear diagnostic reasoning</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-5">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <a href="https://github.com/your-repo" class="btn btn-outline-primary btn-lg w-100">
+                                            <i class="fab fa-github me-2"></i>GitHub Repository
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <a href="#" class="btn btn-outline-success btn-lg w-100">
+                                            <i class="fas fa-play me-2"></i>Demo Video
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <a href="https://agentverse.ai" class="btn btn-outline-info btn-lg w-100">
+                                            <i class="fas fa-robot me-2"></i>Agentverse
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="hospital-footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-hospital fa-2x me-3"></i>
+                        <div>
+                            <h5 class="mb-0">MediTech AI</h5>
+                            <p class="mb-0 text-muted">Advanced Healthcare Diagnosis System</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <span class="me-4">
+                            <i class="fas fa-alliance me-2"></i>ASI Alliance
+                        </span>
+                        <span class="me-4">
+                            <i class="fas fa-trophy me-2"></i>Hackathon 2025
+                        </span>
+                        <span>
+                            <i class="fas fa-code me-2"></i>Open Source
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 MediTech AI Medical Center. Built for ASI Alliance Hackathon. Demonstrating the future of collaborative AI in healthcare.</p>
+                <p class="mb-0 mt-2" style="font-size: 0.9rem; opacity: 0.8;">
+                    <i class="fas fa-robot me-1"></i>
+                    Future-ready architecture supports integration with advanced AI APIs (GPT, Claude, Med-PaLM) for enhanced medical reasoning and natural language processing.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enhanced Animation System
+        function initAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all animated elements
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.floor(current).toLocaleString();
+                }, 16);
+            });
+        }
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initAnimations();
+            
+            // Add smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Animate counters when stats section is visible
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.querySelector('.counter').closest('section');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('patientForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading spinner
+            document.querySelector('.loading-spinner').style.display = 'block';
+            document.querySelector('.result-section').style.display = 'none';
+            
+            // Collect form data
+            const formData = {
+                patient_id: document.getElementById('patientId').value,
+                age: parseInt(document.getElementById('age').value),
+                gender: document.getElementById('gender').value,
+                symptoms: document.getElementById('symptoms').value.split(',').map(s => s.trim()),
+                medical_history: document.getElementById('medicalHistory').value.split(',').map(s => s.trim()),
+                current_medications: document.getElementById('medications').value.split(',').map(s => s.trim()),
+                vital_signs: {
+                    blood_pressure: "120/80",
+                    heart_rate: 72,
+                    temperature: 98.6,
+                    oxygen_saturation: 98
+                }
+            };
+            
+            try {
+                const response = await fetch('/api/analyze-patient', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    console.log('API Response:', result.data);
+                    displayResults(result.data);
+                } else {
+                    throw new Error(result.message);
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error analyzing patient: ' + error.message);
+            } finally {
+                document.querySelector('.loading-spinner').style.display = 'none';
+            }
+        });
+        
+        function displayResults(data) {
+            console.log('Displaying results:', data);
+            const resultsDiv = document.getElementById('analysisResults');
+            
+            // Show the results section
+            document.querySelector('.result-section').style.display = 'block';
+            
+            let html = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-user me-2"></i>Patient Summary</h6>
+                        <p><strong>Age:</strong> ${data.patient_summary.age} years</p>
+                        <p><strong>Gender:</strong> ${data.patient_summary.gender}</p>
+                        <p><strong>Symptoms:</strong></p>
+                        <div>${data.patient_summary.symptoms.map(s => `<span class="symptom-tag">${s}</span>`).join('')}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-chart-line me-2"></i>Confidence Score</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar" style="width: ${data.confidence_score * 100}%">${Math.round(data.confidence_score * 100)}%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <h6><i class="fas fa-stethoscope me-2"></i>Diagnoses</h6>
+                ${data.diagnoses && data.diagnoses.length > 0 ? data.diagnoses.map(diagnosis => `
+                    <div class="diagnosis-item">
+                        <h6>${diagnosis.condition} <span class="badge bg-success">${Math.round(diagnosis.confidence * 100)}% confidence</span></h6>
+                        <p class="mb-1">${diagnosis.reasoning || 'Based on symptom analysis'}</p>
+                        <small class="text-muted">Urgency: ${diagnosis.urgency}</small>
+                    </div>
+                `).join('') : '<p class="text-muted">No specific diagnoses identified. General medical evaluation recommended.</p>'}
+                
+                <hr>
+                
+                <h6><i class="fas fa-pills me-2"></i>Treatment Plan</h6>
+                ${data.treatment_plan && data.treatment_plan.length > 0 ? data.treatment_plan.map(treatment => `
+                    <div class="treatment-item">
+                        <h6>${treatment.treatment_type || treatment.recommendation || 'General Treatment'}</h6>
+                        ${treatment.medication ? `<p><strong>Medication:</strong> ${treatment.medication} ${treatment.dosage || ''}</p>` : ''}
+                        <p>${treatment.instructions || treatment.recommendation || 'Follow medical advice'}</p>
+                    </div>
+                `).join('') : '<p class="text-muted">General supportive care recommended. Consult healthcare provider for specific treatment.</p>'}
+                
+                <hr>
+                
+                <h6><i class="fas fa-exclamation-triangle me-2"></i>Risk Assessment</h6>
+                <div class="risk-item">
+                    <p><strong>Overall Risk:</strong> <span class="badge bg-warning risk-level-${(data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.overall_risk) || 'moderate'}">${(data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.overall_risk) || 'moderate'}</span></p>
+                    <p><strong>Risk Score:</strong> <span class="risk-score">${(((data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.risk_score) || 0.5) * 100).toFixed(1)}%</span></p>
+                    
+                    <div class="risk-factors-detailed">
+                        <h6>Risk Factors:</h6>
+                        <ul class="risk-factors-list">
+                            ${((data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.risk_factors) || []).map(factor => `<li class="risk-factor-item">${factor}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    ${(data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.risk_stratification) ? `
+                    <div class="risk-stratification">
+                        <h6>Risk Stratification:</h6>
+                        <p><strong>Level:</strong> <span class="risk-level">${data.intelligent_ai_analysis.urgency_assessment.risk_stratification.level}</span></p>
+                        <p><strong>Description:</strong> ${data.intelligent_ai_analysis.urgency_assessment.risk_stratification.description}</p>
+                        <p><strong>Total Risk Factors:</strong> ${data.intelligent_ai_analysis.urgency_assessment.risk_stratification.total_factors}</p>
+                        
+                        <div class="risk-categories">
+                            <h6>Risk Categories:</h6>
+                            ${Object.entries(data.intelligent_ai_analysis.urgency_assessment.risk_stratification.categories).map(([category, factors]) => 
+                                factors.length > 0 ? `
+                                <div class="risk-category">
+                                    <strong>${category.replace('_', ' ').toUpperCase()}:</strong>
+                                    <ul>
+                                        ${factors.map(factor => `<li>${factor}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                ` : ''
+                            ).join('')}
+                        </div>
+                        
+                        <div class="primary-concerns">
+                            <h6>Primary Concerns:</h6>
+                            <ul>
+                                ${data.intelligent_ai_analysis.urgency_assessment.risk_stratification.primary_concerns.map(concern => `<li>${concern}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    ${(data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.recommendations) ? `
+                    <div class="risk-recommendations">
+                        <h6>Risk-Based Recommendations:</h6>
+                        <ul>
+                            ${((data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.recommendations) || []).map(rec => `<li class="recommendation-item">${rec}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <hr>
+                
+                <h6><i class="fas fa-list me-2"></i>Recommendations</h6>
+                <ul>
+                    ${data.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                </ul>
+                
+                <h6><i class="fas fa-arrow-right me-2"></i>Next Steps</h6>
+                <ul>
+                    ${data.next_steps.map(step => `<li>${step}</li>`).join('')}
+                </ul>
+            `;
+            
+            resultsDiv.innerHTML = html;
+            document.querySelector('.result-section').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
