@@ -1210,23 +1210,35 @@
         function displayResults(data) {
             console.log('Displaying results:', data);
             const resultsDiv = document.getElementById('analysisResults');
-            
+
+            // Normalize data to avoid runtime errors in static preview
+            const patientSummary = data && data.patient_summary ? data.patient_summary : {};
+            const patientSymptoms = Array.isArray(patientSummary.symptoms)
+                ? patientSummary.symptoms
+                : String(patientSummary.symptoms || '')
+                    .split(',')
+                    .map(s => s.trim())
+                    .filter(Boolean);
+            const diagnosesArr = Array.isArray(data && data.diagnoses) ? data.diagnoses : [];
+            const treatmentArr = Array.isArray(data && data.treatment_plan) ? data.treatment_plan : [];
+            const confScore = typeof data.confidence_score === 'number' ? data.confidence_score : 0;
+
             // Show the results section
             document.querySelector('.result-section').style.display = 'block';
-            
+
             let html = `
                 <div class="row">
                     <div class="col-md-6">
                         <h6><i class="fas fa-user me-2"></i>Patient Summary</h6>
-                        <p><strong>Age:</strong> ${data.patient_summary.age} years</p>
-                        <p><strong>Gender:</strong> ${data.patient_summary.gender}</p>
+                        <p><strong>Age:</strong> ${patientSummary.age ?? '—'} years</p>
+                        <p><strong>Gender:</strong> ${patientSummary.gender ?? '—'}</p>
                         <p><strong>Symptoms:</strong></p>
-                        <div>${data.patient_summary.symptoms.map(s => `<span class="symptom-tag">${s}</span>`).join('')}</div>
+                        <div>${patientSymptoms.map(s => `<span class="symptom-tag">${s}</span>`).join('')}</div>
                     </div>
                     <div class="col-md-6">
                         <h6><i class="fas fa-chart-line me-2"></i>Confidence Score</h6>
                         <div class="progress mb-3">
-                            <div class="progress-bar" style="width: ${data.confidence_score * 100}%">${Math.round(data.confidence_score * 100)}%</div>
+                            <div class="progress-bar" style="width: ${confScore * 100}%">${Math.round(confScore * 100)}%</div>
                         </div>
                     </div>
                 </div>
@@ -1234,7 +1246,7 @@
                 <hr>
                 
                 <h6><i class="fas fa-stethoscope me-2"></i>Diagnoses</h6>
-                ${data.diagnoses && data.diagnoses.length > 0 ? data.diagnoses.map(diagnosis => `
+                ${diagnosesArr.length > 0 ? diagnosesArr.map(diagnosis => `
                     <div class="diagnosis-item">
                         <h6>${diagnosis.condition} <span class="badge bg-success">${Math.round(diagnosis.confidence * 100)}% confidence</span></h6>
                         <p class="mb-1">${diagnosis.reasoning || 'Based on symptom analysis'}</p>
@@ -1245,7 +1257,7 @@
                 <hr>
                 
                 <h6><i class="fas fa-pills me-2"></i>Treatment Plan</h6>
-                ${data.treatment_plan && data.treatment_plan.length > 0 ? data.treatment_plan.map(treatment => `
+                ${treatmentArr.length > 0 ? treatmentArr.map(treatment => `
                     <div class="treatment-item">
                         <h6>${treatment.treatment_type || treatment.recommendation || 'General Treatment'}</h6>
                         ${treatment.medication ? `<p><strong>Medication:</strong> ${treatment.medication} ${treatment.dosage || ''}</p>` : ''}
