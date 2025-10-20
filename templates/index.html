@@ -1155,7 +1155,10 @@
 
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error analyzing patient: ' + error.message);
+                // Show a non-blocking inline message instead of alert
+                const resultsDiv = document.getElementById('analysisResults');
+                resultsDiv.innerHTML = `<div class="alert alert-warning">Error analyzing patient: ${error.message}. Showing best available information.</div>`;
+                document.querySelector('.result-section').style.display = 'block';
             } finally {
                 document.querySelector('.loading-spinner').style.display = 'none';
             }
@@ -1221,6 +1224,8 @@
                     .filter(Boolean);
             const diagnosesArr = Array.isArray(data && data.diagnoses) ? data.diagnoses : [];
             const treatmentArr = Array.isArray(data && data.treatment_plan) ? data.treatment_plan : [];
+            const recommendationsArr = Array.isArray(data && data.recommendations) ? data.recommendations : [];
+            const nextStepsArr = Array.isArray(data && data.next_steps) ? data.next_steps : [];
             const confScore = typeof data.confidence_score === 'number' ? data.confidence_score : 0;
 
             // Show the results section
@@ -1288,7 +1293,7 @@
                         
                         <div class="risk-categories">
                             <h6>Risk Categories:</h6>
-                            ${Object.entries(data.intelligent_ai_analysis.urgency_assessment.risk_stratification.categories).map(([category, factors]) => 
+                            ${Object.entries((data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.risk_stratification && data.intelligent_ai_analysis.urgency_assessment.risk_stratification.categories) || {}).map(([category, factors]) => 
                                 factors.length > 0 ? `
                                 <div class="risk-category">
                                     <strong>${category.replace('_', ' ').toUpperCase()}:</strong>
@@ -1303,7 +1308,7 @@
                         <div class="primary-concerns">
                             <h6>Primary Concerns:</h6>
                             <ul>
-                                ${data.intelligent_ai_analysis.urgency_assessment.risk_stratification.primary_concerns.map(concern => `<li>${concern}</li>`).join('')}
+                                ${((data.intelligent_ai_analysis && data.intelligent_ai_analysis.urgency_assessment && data.intelligent_ai_analysis.urgency_assessment.risk_stratification && data.intelligent_ai_analysis.urgency_assessment.risk_stratification.primary_concerns) || []).map(concern => `<li>${concern}</li>`).join('')}
                             </ul>
                         </div>
                     </div>
@@ -1323,12 +1328,12 @@
                 
                 <h6><i class="fas fa-list me-2"></i>Recommendations</h6>
                 <ul>
-                    ${data.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                    ${recommendationsArr.map(rec => `<li>${rec}</li>`).join('')}
                 </ul>
                 
                 <h6><i class="fas fa-arrow-right me-2"></i>Next Steps</h6>
                 <ul>
-                    ${data.next_steps.map(step => `<li>${step}</li>`).join('')}
+                    ${nextStepsArr.map(step => `<li>${step}</li>`).join('')}
                 </ul>
             `;
             
