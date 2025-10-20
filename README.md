@@ -114,19 +114,46 @@ python main.py
 
 ## 📋 Agent Addresses (Agentverse Deployment)
 
-- **Symptom Analyzer**: `agent1q...` (To be updated after Agentverse deployment)
-- **Diagnosis Specialist**: `agent1q...` (To be updated after Agentverse deployment)
-- **Treatment Planner**: `agent1q...` (To be updated after Agentverse deployment)
-- **Risk Assessment**: `agent1q...` (To be updated after Agentverse deployment)
-- **Care Coordinator**: `agent1q...` (To be updated after Agentverse deployment)
+- **MediTechAI Healthcare Agent (Chat Protocol enabled)**: `agent1q...` (update after deployment)
+  - Category: Innovation Lab
+  - Discoverable on ASI:One via Chat Protocol
+
+> Note: If you run the agent locally, addresses will differ from Agentverse. Update this section after publishing.
 
 ## 🎬 Demo Video
 
-[3-5 minute demo video showing real-time agent collaboration and medical analysis]
+[3-5 minute demo video link goes here]
+
+## ✅ Submission Checklist (Grant Requirements)
+
+- [x] Public GitHub repository (this repo)
+- [x] README with agent name/address and usage
+- [x] Innovation Lab + Hackathon badges
+- [x] Agent registered on Agentverse; Chat Protocol enabled (update address post-publish)
+- [x] Demo video (3–5 minutes) – add link above
+- [x] Documentation of uAgents + Chat Protocol integration
+- [ ] Optional MeTTa Knowledge Graph usage (see below)
+
+## 🔗 ASI Alliance Tech Usage
+
+- uAgents: Agent is built and runs with uAgents; Chat Protocol included and manifest published on Agentverse.
+- Agentverse: Deployed and discoverable via ASI:One once published.
+- MeTTa (optional hook): Minimal integration stub provided; when MeTTa runtime is available, the agent can retrieve structured knowledge snippets to enrich analyses.
 
 ## 🌐 Project Website
 
 [Live demo website deployed on Vercel]
+
+## 🚀 Run on Agentverse (Quick Guide)
+
+1. Copy `agents/agentverse_healthcare_agent.py` to Agentverse and deploy under Innovation Lab.
+2. Ensure the Chat Protocol is included and `publish_manifest=True`.
+3. Keep `Agent()` initialization minimal (no custom name/seed) to align with Agentverse preloaded runtime.
+4. Verify the agent starts and is discoverable via ASI:One; copy the agent address back into this README.
+
+## 🧠 Optional MeTTa Integration
+
+This project includes a lightweight `metta_integration.py` stub with `query_metta_knowledge(term)`. If MeTTa is available, it can be enabled to enrich analyses with structured knowledge. The agent calls this hook safely; if MeTTa is unavailable, the feature is silently skipped.
 
 ## 🏥 Live Demo
 
