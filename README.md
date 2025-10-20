@@ -123,7 +123,7 @@ python main.py
 
 ## 🎬 Demo Video
 
-[3-5 minute demo video link goes here]
+https://streamable.com/ia3w3l
 
 ## ✅ Submission Checklist (Grant Requirements)
 
