@@ -1023,6 +1023,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="/web_agents.js"></script>
     <script>
+        // Ensure external links are absolute and open correctly in production
+        document.addEventListener('DOMContentLoaded', function () {
+            const gh = document.getElementById('link-github');
+            const av = document.getElementById('link-agentverse');
+            if (gh) {
+                gh.href = 'https://github.com/panagot/ASI-Agents-Track';
+                gh.target = '_blank';
+                gh.rel = 'noopener noreferrer';
+            }
+            if (av) {
+                av.href = 'https://agentverse.ai/marketplace?search=agent1qgesfwkgdyfkduyj0terpm72rwyzc3rduyyak7ke9xw3wsz6zuqe2x2pjh6&sort=relevancy&page=1&recommended=true';
+                av.target = '_blank';
+                av.rel = 'noopener noreferrer';
+            }
+        });
+    </script>
+    <script>
         // Enhanced Animation System
         function initAnimations() {
             const observerOptions = {
