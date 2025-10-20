@@ -1021,6 +1021,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/web_agents.js"></script>
     <script>
         // Enhanced Animation System
         function initAnimations() {
@@ -1142,9 +1143,14 @@
                 }
 
                 if (useLocalMock) {
-                    // Client-side fallback analysis for static hosting/local preview
-                    const mock = localAnalyzePatient(formData);
-                    displayResults(mock);
+                    // Prefer 5-agent pipeline if available, else simple local fallback
+                    if (window.WebAgents && window.WebAgents.CareCoordinator) {
+                        const resultData = window.WebAgents.CareCoordinator.run(formData);
+                        displayResults(resultData);
+                    } else {
+                        const mock = localAnalyzePatient(formData);
+                        displayResults(mock);
+                    }
                 } else {
                     if (result && result.success) {
                         displayResults(result.data);
