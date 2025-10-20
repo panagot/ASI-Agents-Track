@@ -1,15 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "main_simple.py",
-      "use": "@vercel/python"
-    }
-  ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "main_simple.py"
-    }
+    { "src": "/favicon.ico", "dest": "templates/favicon.ico" },
+    { "src": "/(.*)", "dest": "templates/index.html" }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
   ]
 }

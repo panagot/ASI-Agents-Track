@@ -114,11 +114,12 @@ python main.py
 
 ## 📋 Agent Addresses (Agentverse Deployment)
 
-- **MediTechAI Healthcare Agent (Chat Protocol enabled)**: `agent1q...` (update after deployment)
-  - Category: Innovation Lab
-  - Discoverable on ASI:One via Chat Protocol
+- **MediTechAI Healthcare Agent (Chat Protocol enabled)**: `agent1qgesfwkgdyfkduyj0terpm72rwyzc3rduyyak7ke9xw3wsz6zuqe2x2pjh6`  
+  - Category: Innovation Lab  
+  - Discoverable on ASI:One via Chat Protocol  
+  - Agentverse page: https://agentverse.ai/marketplace?search=agent1qgesfwkgdyfkduyj0terpm72rwyzc3rduyyak7ke9xw3wsz6zuqe2x2pjh6&sort=relevancy&page=1&recommended=true
 
-> Note: If you run the agent locally, addresses will differ from Agentverse. Update this section after publishing.
+> Note: If you run the agent locally, addresses will differ from Agentverse.
 
 ## 🎬 Demo Video
 
@@ -142,7 +143,7 @@ python main.py
 
 ## 🌐 Project Website
 
-[Live demo website deployed on Vercel]
+[Live demo website deployed on Vercel](https://asi-agents-track.vercel.app/)
 
 ## 🚀 Run on Agentverse (Quick Guide)
 
