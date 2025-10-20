@@ -5,6 +5,10 @@
     { "src": "/(.*)", "dest": "templates/index.html" }
   ],
   "headers": [
+    { "source": "/", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/index.html", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/web_core.js", "headers": [{ "key": "Cache-Control", "value": "max-age=60, must-revalidate" }] },
+    { "source": "/web_agents.js", "headers": [{ "key": "Cache-Control", "value": "max-age=60, must-revalidate" }] },
     { "source": "/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
   ]
 }
