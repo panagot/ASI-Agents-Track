@@ -57,8 +57,12 @@ export function basicConfidence(condition, tokens) {
   info.symptoms.forEach(sym => { if (tokens.some(t => sym.includes(t) || t.includes(sym))) direct += 1; });
   let base = direct / Math.max(1, info.symptoms.length);
   // Pair boosts
+  const text = tokens.join(' ');
   MEDICAL_KNOWLEDGE.symptomPairs.forEach(([a,b]) => {
-    if (tokens.includes(a) && tokens.includes(b) && info.symptoms.some(x=>a.includes(x)||x.includes(a)) && info.symptoms.some(x=>b.includes(x)||x.includes(b))) base += 0.2;
+    // Phrase-aware: boost when full phrases appear in normalized text
+    const hasPhrases = text.includes(a) && text.includes(b);
+    const relevant = info.symptoms.some(x=>a.includes(x)||x.includes(a)) && info.symptoms.some(x=>b.includes(x)||x.includes(b));
+    if (hasPhrases && relevant) base += 0.2;
   });
   const rarity = MEDICAL_KNOWLEDGE.rarity[condition.toLowerCase?.()] ?? 0.5;
   return Math.max(0.3, Math.min(base - 0.05 * rarity, 0.85));
