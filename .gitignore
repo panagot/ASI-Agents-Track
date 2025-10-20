@@ -1,0 +1,15 @@
+# Secrets and environment files
+.env
+.env.*
+apikeysforai.txt
+
+# Python
+__pycache__/
+*.pyc
+
+# Node/web
+node_modules/
+dist/
+build/
+
+
