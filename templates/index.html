@@ -1163,7 +1163,10 @@
 
         // Lightweight client-side analyzer used when API is not available
         function localAnalyzePatient(formData) {
-            const symptoms = (formData.symptoms || '').toLowerCase();
+            const rawSymptoms = Array.isArray(formData.symptoms)
+                ? formData.symptoms.join(', ')
+                : (formData.symptoms ?? '');
+            const symptoms = String(rawSymptoms).toLowerCase();
             const diagnoses = [];
             const addDx = (condition, confidence, urgency, reasoning) =>
                 diagnoses.push({ condition, confidence, urgency, reasoning });
@@ -1182,11 +1185,18 @@
             }
 
             const confidenceScore = Math.max(...diagnoses.map(d => d.confidence));
+            const symptomArray = Array.isArray(formData.symptoms)
+                ? formData.symptoms
+                : String(formData.symptoms || '')
+                    .split(',')
+                    .map(s => s.trim())
+                    .filter(Boolean);
+
             return {
                 patient_summary: {
                     age: formData.age || '—',
                     gender: formData.gender || '—',
-                    symptoms: (formData.symptoms || '').split(',').map(s => s.trim()).filter(Boolean)
+                    symptoms: symptomArray
                 },
                 confidence_score: confidenceScore,
                 diagnoses,
