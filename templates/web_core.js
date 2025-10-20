@@ -7,6 +7,10 @@ export const MEDICAL_KNOWLEDGE = {
     ["cough", "fatigue"],
     ["chest pain", "shortness of breath"],
   ],
+  // Critical pairs indicating potentially serious presentations deserving extra boost
+  criticalPairs: [
+    ["chest pain", "shortness of breath"]
+  ],
   rarity: {
     meningitis: 0.9, appendicitis: 0.8, "pulmonary embolism": 0.9,
     "common cold": 0.2, migraine: 0.3, anxiety: 0.2, bronchitis: 0.3,
@@ -64,8 +68,12 @@ export function basicConfidence(condition, tokens) {
     const relevant = info.symptoms.some(x=>a.includes(x)||x.includes(a)) && info.symptoms.some(x=>b.includes(x)||x.includes(b));
     if (hasPhrases && relevant) base += 0.2;
   });
+  // Severity boost for critical phrase combinations
+  MEDICAL_KNOWLEDGE.criticalPairs.forEach(([a,b]) => {
+    if (text.includes(a) && text.includes(b)) base += 0.12;
+  });
   const rarity = MEDICAL_KNOWLEDGE.rarity[condition.toLowerCase?.()] ?? 0.5;
-  return Math.max(0.3, Math.min(base - 0.05 * rarity, 0.85));
+  return Math.max(0.3, Math.min(base - 0.03 * rarity, 0.85));
 }
 
 export function riskAssessment(tokens) {
